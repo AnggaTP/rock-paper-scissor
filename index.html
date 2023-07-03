@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor</title>
+</head>
+<body>
+    <script>
+        let option = ["rock", "paper", "scissor"]
+        
+        function winningText(kata1,kata2){
+            return `Congrtultion!${kata1} wins against ${kata2}`;
+        }
+        function LosingText(kata1,kata2){
+            return `Sorry!${kata1} loses against ${kata2}`;
+        }
+        function draw(){
+            return `It's a tie`;
+        }
+        function computerChoice(){
+            let min = 0;
+            let max = 2;
+            let number = Math.floor(Math.random()*(max-min+1)+min);
+            return option[number];
+        }
+
+        function playRound(kata1, kata2){
+            let result;
+            if(kata1=="rock" && kata2=="rock"){
+                result = draw();
+            }
+            else if(kata1=="rock" && kata2=="paper"){
+                result = LosingText(kata1,kata2);
+            }
+            else if(kata1=="rock" && kata2=="scissor"){
+                result = winningText(kata1,kata2);
+            }
+            else if(kata1=="paper" && kata2=="paper"){
+                result = draw();
+            }
+            else if(kata1=="paper" && kata2=="rock"){
+                result = winningText(kata1,kata2);
+            }
+            else if(kata1=="paper" && kata2=="scissor"){
+                result = LosingText(kata1,kata2);
+            }
+            else if(kata1=="scissor" && kata2=="scissor"){
+                result = draw();
+            }
+            else if(kata1=="scissor" && kata2=="rock"){
+                result = LosingText(kata1,kata2);
+            }
+            else if(kata1=="scissor" && kata2=="paper"){
+                result = winningText(kata1,kata2);
+            }
+            return result;
+        }
+        
+        let player = prompt("Please input you choice")
+        let hasil = playRound(player.toLowerCase(),computerChoice())
+
+        console.log(hasil)
+    </script>
+</body>
+</html>
