@@ -10,13 +10,32 @@
 <body>
     <div class="container">
         <div class="title">Rock , Paper , Scissor</div>
-        <div class="score">Your Score : <span id="playerScore"></span> Computer Score : <span id="computerScore"></span></div>
-        <div class="button">
-            <button id="btn-rock">Rock</button>
-            <button id="btn-paper">Paper</button>
-            <button id="btn-scissor">Scissor</button>
+        <div class="playerScore">
+            <div>Player Score :</div>
+            <div player-score-text class="playerScoreText">0</div>
         </div>
-        <div id="result"></div>
+        <div class="computerScore">
+            <div>Computer Score :</div>
+            <div computer-score-text class="computerScoreText">0</div>
+        </div>
+        <button btn-choice class="btn rock">Rock</button>
+        <button btn-choice class="btn paper">Paper</button>
+        <button btn-choice class="btn scissor">Scissor</button>
+        <div result-text class="result"></div>
+    </div>
+
+    <div class="popup-container">
+        <div class="popup"">
+            <div class="final-result">Player Win The Game</div>
+            <button restart-btn>Restart Game</button>
+        </div>
+    </div>
+
+    <div class="popup-container2">
+        <div class="popup"">
+            <div class="final-result">Computer Win The Game</div>
+            <button restart-btn>Restart Game</button>
+        </div>
     </div>
 </body>
 </html>

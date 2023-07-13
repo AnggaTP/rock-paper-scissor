@@ -1,80 +1,137 @@
-const btnRock = document.querySelector('#btn-rock')
-const btnPaper = document.querySelector('#btn-paper')
-const btnScissor = document.querySelector('#btn-scissor')
-
-let playerScoreInit = 0;
-let computerScoreInit = 0;
-const playerScore = document.querySelector('#playerScore')
-const computerScore = document.querySelector('#computerScore')
-
-
-playerScore.textContent = playerScoreInit;
-computerScore.textContent = computerScoreInit
-
-
-const text = document.querySelector('#result')
-
-function check(){
-    if(playerScoreInit == 5){
-        location.reload()
+class Game{
+    constructor(playerScoreText, computerScoreText,resultText, popup, popup2){
+        this.playerScoreText = playerScoreText;
+        this.computerScoreText = computerScoreText;
+        this.resultText = resultText;
+        this.popup = popup;
+        this.popup2 = popup2;
+        this.clear();
     }
-    else{
-        playerScoreInit += 1;
-        playerScore.textContent = playerScoreInit;
+
+    clear(){
+        this.playerScore = 0;
+        this.computerScore = 0;
+        this.result = '';
+    }
+
+    getComputerChoice(){
+        const option = ["rock", "paper", "scissor"]
+        let min = 0;
+        let max = 2;
+        let number = Math.floor(Math.random()*(max-min+1)+min);
+        return option[number];
+    }
+
+    startRound(playerChoice){
+        let computerChoice = this.getComputerChoice()
+        const winText = `Congratulations! ${playerChoice} win against ${computerChoice}`
+        const loseText = `Sorry! ${playerChoice} lose against ${computerChoice}`
+        const tieText = `It's A Tie`
+        if(playerChoice.toLowerCase() === computerChoice){
+            console.log('tie')
+            this.result = tieText.toUpperCase()
+        }
+        else if(playerChoice.toLowerCase()==='rock'){
+            switch(computerChoice){
+                case 'paper':
+                    console.log('Lose')
+                    this.computerScore += 1;
+                    this.result = loseText.toUpperCase()
+                    break
+                case 'scissor':
+                    console.log('Win')
+                    this.playerScore += 1;
+                    this.result = winText.toUpperCase()
+                    break
+                default:
+                    return
+            }
+        }
+        else if(playerChoice.toLowerCase()==='paper'){
+            switch(computerChoice){
+                case 'rock':
+                    console.log('Win')
+                    this.playerScore += 1;
+                    this.result = winText.toUpperCase()
+                    break
+                case 'scissor':
+                    console.log('Lose')
+                    this.computerScore += 1;
+                    this.result = loseText.toUpperCase()
+                    break
+                default:
+                    return
+            }
+        }
+        else if(playerChoice.toLowerCase()==='scissor'){
+            switch(computerChoice){
+                case 'rock':
+                    console.log('Lose')
+                    this.computerScore += 1;
+                    this.result = loseText.toUpperCase()
+                    break
+                case 'paper':
+                    console.log('Win')
+                    this.playerScore += 1;
+                    this.result = winText.toUpperCase()
+                    break
+                default:
+                    return
+            }
+        }
+        if(this.playerScore === 5 || this.computerScore === 5){
+            this.showModal()
+        }
+
+    }
+
+    showModal(){
+        if(this.playerScore === 5){
+            this.popup.style.display = 'block'
+            this.clear()
+        }
+        else if(this.computerScore === 5){
+            this.popup2.style.display = 'block'
+            this.clear()
+        }
+        else{
+            return
+        }
+    }
+
+    removeModal(){
+        this.popup.style.display = 'none'
+        this.popup2.style.display = 'none'
+    }
+
+    updateScore(){
+        this.playerScoreText.innerHTML = this.playerScore
+        this.computerScoreText.innerHTML = this.computerScore
+        this.resultText.innerHTML = this.result
     }
 }
 
 
-function getcComputerChoice(){
-    const option = ["rock", "paper", "scissor"]
-    let min = 0;
-    let max = 2;
-    let number = Math.floor(Math.random()*(max-min+1)+min);
-    return option[number];
-}
 
-btnRock.addEventListener('click',function(){
-    const computerSelection = getcComputerChoice()
-    if(computerSelection == 'rock'){
-        text.textContent = `It's A Tie`
-    }
-    else if(computerSelection == 'paper'){
-        text.textContent = `Sorry! Rock Lose Against ${computerSelection}`
-        computerScoreInit += 1
-        computerScore.textContent = computerScoreInit
-    }
-    else if(computerSelection == 'scissor'){
-        text.textContent = `Congratulation! Rock Win Against ${computerSelection}`
-        check()
-    }
+const choiceBtn = document.querySelectorAll('[btn-choice]');
+const resultText = document.querySelector('[result-text]');
+const playerScoreText = document.querySelector('[player-score-text]');
+const computerScoreText = document.querySelector('[computer-score-text]');
+const restart = document.querySelectorAll('[restart-btn]')
+const popup = document.querySelector('.popup-container')
+const popup2 = document.querySelector('.popup-container2')
+
+const game = new Game(playerScoreText, computerScoreText, resultText, popup, popup2)
+choiceBtn.forEach(button => {
+    button.addEventListener('click', ()=>{
+        game.startRound(button.innerHTML)
+        game.updateScore()
+    })
 })
-btnPaper.addEventListener('click',function(){
-    const computerSelection = getcComputerChoice()
-    if(computerSelection == 'paper'){
-        text.textContent = `It's A Tie`
-    }
-    else if(computerSelection == 'scissor'){
-        text.textContent = `Sorry! Paper Lose Against ${computerSelection}`
-        computerScoreInit += 1
-        computerScore.textContent = computerScoreInit
-    }
-    else if(computerSelection == 'rock'){
-        text.textContent = `Congratulation! Paper Win Against ${computerSelection}`
-        check()
-    }
+
+restart.forEach(button=>{
+    button.addEventListener('click',()=>{
+        game.removeModal()
+    })
 })
-btnScissor.addEventListener('click',function(){
-    const computerSelection = getcComputerChoice()
-    if(computerSelection == 'scissor'){
-        text.textContent = `It's A Tie`
-    }
-    else if(computerSelection == 'rock'){
-        text.textContent = `Sorry! Scissor Lose Against ${computerSelection}`
-        computerScoreInit += 1
-        computerScore.textContent = computerScoreInit
-    }
-    else if(computerSelection == 'paper'){
-        text.textContent = `Congratulation! Scissor Win Against ${computerSelection}`
-        check()
-    }
-})
+

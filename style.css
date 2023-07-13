@@ -1,32 +1,165 @@
+:root{
+    font-size: 16px;
+    --ivory : #F5FBEF;
+    --cambridgeBlue : #92AD94;
+    --rosedaGreen : #748B75;
+    --roseEbony : #503D42;
+    --yellowGreen : #84C318;
+}
+@font-face {
+    font-family: Super;
+    src: url(font/Super.ttf);
+}
 body{
-    margin: 0;
-    background-color: aqua;
-}
-.title{
-    font-size: 40px;
-    padding-bottom: 10px;
-}
-
-#result{
-    font-size: 24px;
-    padding-top: 30px
-}
-
-button{
-    padding: 10px 30px;
-    margin: 15px 10px;
+    background-color: var(--roseEbony);
 }
 .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    height: 100vh;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas: 
+    "title title title title"
+    "player btn1 btn1 computer"
+    "player btn2 btn3 computer"
+    "result result result result"
+    ;
+}
+
+.title{
+    grid-area: title;
+    font-size: 3rem;
+    text-align: center;
+    padding-top:50px ;
+    padding-bottom: 50px;
+    font-family: Super;
+    color: var(--yellowGreen);
 
 }
 
-.score{
+.playerScore{
+    grid-area: player;
+    justify-self: center;
+    font-size: 1.5rem;
+    font-family: Super;
+    color: whitesmoke;
+}
+
+.computerScore{
+    grid-area: computer;
+    justify-self: center;
+    font-size: 1.5rem;
+    font-family: Super;
+    color: whitesmoke;
+}
+
+.playerScoreText,
+.computerScoreText{
+    text-align: center;
+}
+
+.rock{
+    grid-area: btn1;
+    justify-self: center;
+
+}
+
+.paper{
+    grid-area: btn2;
+    justify-self: center;
+}
+
+.scissor{
+    grid-area: btn3;
+    justify-self: center;
+}
+
+.result{
+    grid-area: result;
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 100px;
+    font-family: Super;
+    color: var(--yellowGreen);
+}
+.btn{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--ivory);
     font-size: 18px;
-    font-weight: bold;
+    font-family: Super;
+    margin: 20px;
+    background-color: rgb(189, 66, 66);
+    color: var(--ivory);
+}
+
+.btn:hover{
+    background-color: var(--ivory);
+    color: var(--roseEbony);
+}
+
+.btn:active{
+    transform: scale(1.2);
+}
+
+.popup-container{
+    display: none;
+    position: fixed;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.popup-container2{
+    display: none;
+    position: fixed;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+.popup{
+    display: grid;
+    width: 400px;
+    height: 200px;
+    opacity: 100%;
+    background-color: var(--yellowGreen);
+    border: 5px solid var(--rosedaGreen);
+    position: fixed;
+    left: 35vw;
+    top: 35vh;
+}
+
+.final-result{
+    text-align: center;
+    align-self: center;
+    font-family: Super;
+    font-size: 28px;
+    letter-spacing: 0.7rem;
+    color: var(--roseEbony);
+}
+
+.popup > button{
+    justify-self: center;
+    align-self: center;
+    font-size: 24px;
+    font-family: Super;
+    border: none;
+    background-color: var(--ivory);
+    color: var(--roseEbony);
+    box-shadow: 0px 4px var(--roseEbony);
+}
+
+.popup > button:active{
+    translate: 0px 4px;
+    box-shadow: 0px 0px var(--roseEbony);
 }
